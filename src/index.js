@@ -1,23 +1,18 @@
 const express = require('express');
 const db = require("./db")
+const routesCategories = require("./routes/categories");
+
 const app = express();
+app.use(express.json());
+
+
 const port = 3000;
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-
-// Create query get all categories
-app.get("/categories", (req, res) => {
-  db.query("SELECT * FROM categories", (error, response) => {
-    if(error) {
-      return res.status(500).json(error);
-    }
-
-    return res.status(200).json(response.rows);
-  });
-});
+app.use("/categories", routesCategories);
 
 // Import DB
 app.listen(port, () => {
