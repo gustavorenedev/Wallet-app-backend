@@ -1,3 +1,5 @@
+// also installed nodemon to reload the application after any change
+
 const express = require('express');
 const db = require("./db");
 const routesCategories = require("./routes/categories");
