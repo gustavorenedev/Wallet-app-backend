@@ -1,10 +1,9 @@
 const express = require('express');
-const db = require("./db")
+const db = require("./db");
 const routesCategories = require("./routes/categories");
 
 const app = express();
 app.use(express.json());
-
 
 const port = 3000;
 
