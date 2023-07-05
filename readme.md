@@ -9,6 +9,11 @@ The main goal is create an application that controls user finances.
 - Node.js
 - Docker
 
+## Documentation
+
+Use insomnia to import the file bellow:
+https://github.com/gustavorenedev/Wallet-app-backend/blob/main/insomnia.json
+
 ## Steps to run the project
 
 1. Clone the project
@@ -60,8 +65,3 @@ npm run start:dev
 ```
 npm run start
 ```
-
-# Documentation
-
-Use insomnia to import the file bellow:
-https://github.com/gustavorenedev/Wallet-app-backend/blob/main/insomnia.json
