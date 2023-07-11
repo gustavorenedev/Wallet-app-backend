@@ -91,6 +91,20 @@ router.get("/", async(req, res) => {
     } catch (error) {
         return res.status(500).json(error);
     }
-})
+});
+
+router.get("/all-users", (req, res) => {
+    try {
+        db.query("SELECT * FROM users ORDER BY id ASC ", (error, response) => {
+            if (error) {
+                return res.status(500).json(error);
+            }
+
+            return res.status(200).json(response.rows);
+        });
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+});
 
 module.exports = router;

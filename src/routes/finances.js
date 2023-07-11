@@ -34,9 +34,10 @@ router.post("/", async(req, res) => {
             return res.status(404).json({ error: "User does not exits." });
         };
 
-        const category = await db.query(categoriesQueries.findById(category_id));
-        if (!category.rows[0]) {
-            return res.status(404).json({ error: "Category not found" });
+        const categoryQuery = await db.query(categoriesQueries.findById(category_id));
+        const category = categoryQuery.rows[0];
+        if (!category) {
+        return res.status(404).json({ error: "Category not found" });
         }
 
         const text = "INSERT INTO finances(user_id, category_id, date, title, value) VALUES($1, $2, $3, $4, $5) RETURNING *";
@@ -121,7 +122,7 @@ router.get("/", async(req, res) => {
         const initDate = new Date(year, month, 1).toISOString();
         const finDate = new Date(year, month + 1, 0).toISOString();
 
-        const text = "SELECT fin.title, fin.value, fin.date, fin.user_id, fin.category_id, cat.name FROM finances as fin JOIN categories as cat ON fin.category_id = cat.id WHERE fin.user_id=$1 AND fin.date BETWEEN $2 AND $3 ORDER BY fin.date ASC";
+        const text = "SELECT fin.id, fin.title, fin.value, fin.date, fin.user_id, fin.category_id, cat.name FROM finances as fin JOIN categories as cat ON fin.category_id = cat.id WHERE fin.user_id=$1 AND fin.date BETWEEN $2 AND $3 ORDER BY fin.date ASC";
         const values = [userQuery.rows[0].id, initDate, finDate];
         const financesQuery = await db.query(text, values);
 
