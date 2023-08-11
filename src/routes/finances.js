@@ -120,14 +120,13 @@ router.get("/", async(req, res) => {
         const year = dateObject.getFullYear();
         const month = dateObject.getMonth();
         const initDate = new Date(year, month, 1).toISOString();
-        const finDate = new Date(year, month + 1, 0).toISOString();
+        const finDate = new Date(year, month + 1, -2).toISOString();
 
         const text = "SELECT fin.id, fin.title, fin.value, fin.date, fin.user_id, fin.category_id, cat.name FROM finances as fin JOIN categories as cat ON fin.category_id = cat.id WHERE fin.user_id=$1 AND fin.date BETWEEN $2 AND $3 ORDER BY fin.date ASC";
         const values = [userQuery.rows[0].id, initDate, finDate];
         const financesQuery = await db.query(text, values);
 
         return res.status(200).json(financesQuery.rows);
-
     } catch (error) {
         return res.status(500).json(error);
     };
